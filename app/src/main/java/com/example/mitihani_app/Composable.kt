@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,10 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 
-
-
 @Composable
 fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
+    val textSizeWelcom by remember { mutableStateOf(30.sp) } // Initial text size
+    val textSizeWelcomeButton by remember { mutableStateOf(20.sp) } // Initial text size
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,10 +34,10 @@ fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Karibuni App za Mitihani!")
+        Text(text = "Karibuni App za Mitihani!", fontSize = textSizeWelcom)
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = onStartQuizClicked) {
-            Text(text = "Endelee ili kufanya mitihani")
+            Text(text = "Endelee ili kufanya mitihani", fontSize = textSizeWelcomeButton)
         }
     }
 }
@@ -86,7 +85,7 @@ fun QuizScreen(
     ) {
         val currentQuestion = shuffledQuestions[currentQuestionIndex]
 
-        Text(text = currentQuestion.text)
+        Text(text = currentQuestion.text, fontSize = textSizeTwo)
 
         currentQuestion.options.forEachIndexed { optionIndex, option ->
             RadioButton(
@@ -131,13 +130,13 @@ fun QuizScreen(
 
         if (showScore) {
             Text(
-                text = "Your score is: $score/$totalQuestions",
+                text = "Alama yako ni: $score/$totalQuestions",
                 color = scoreColor,
                 fontSize = textSize,
                 modifier = Modifier.padding(16.dp)
             )
             Text(
-                text = if (score >= 7) "Great Job" else "Please Study!",
+                text = if (score >= 7) "Hongera! Umefaulu" else "Upaswe kusoma zaidi!!",
                 fontSize = textSizeTwo,
                 color = scoreColor,
                 modifier = Modifier.padding(16.dp)
