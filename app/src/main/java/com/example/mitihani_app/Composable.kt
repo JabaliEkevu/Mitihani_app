@@ -96,6 +96,7 @@ fun QuizScreen(
             if (selectedOptionIndex.value == currentQuestion.correctAnswerIndex) {
                 score++
             }
+            selectedOptionIndex.value = -1 // Reset selected option index
 
             if (currentQuestionIndex < totalQuestions - 1) {
                 currentQuestionIndex++
