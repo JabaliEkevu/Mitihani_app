@@ -74,6 +74,7 @@ fun QuizScreen(
     var scoreColor by remember { mutableStateOf(Color.White) }
     var textSize by remember { mutableStateOf(16.sp) } // Initial text size
     val textSizeTwo by remember { mutableStateOf(20.sp) } // Initial text size
+    val selectedOptionIndex = remember { mutableStateOf(-1) } // Selected option index, initialized to -1
 
     // Shuffle the list of questions
     val shuffledQuestions = remember { quiz.questions.shuffled() }
@@ -87,8 +88,6 @@ fun QuizScreen(
 
         Text(text = currentQuestion.text)
 
-        val selectedOptionIndex = remember { mutableStateOf(currentQuestion.selectedOptionIndex) }
-
         currentQuestion.options.forEachIndexed { optionIndex, option ->
             RadioButton(
                 selected = optionIndex == selectedOptionIndex.value,
@@ -101,46 +100,49 @@ fun QuizScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        if (!showScore) {
-            Button(
-                onClick = {
-                    if (selectedOptionIndex.value == currentQuestion.correctAnswerIndex) {
-                        score++
-                    }
-
-                    selectedOptionIndex.value = -1 // Reset selected option index
-
-                    if (currentQuestionIndex < totalQuestions - 1) {
-                        currentQuestionIndex++
-                    } else {
-                        showScore = true // Show the score when reaching the last question
-                        scoreColor = if (score >= 7) Color.Green else Color.Red // Set color based on score
-                        textSize = 24.sp // Set text size to a larger value
-                    }
+        Button(
+            onClick = {
+                if (selectedOptionIndex.value == -1) {
+                    // No option selected, do not proceed
+                    return@Button
                 }
-            ) {
-                Text(
-                    text = "Your score is: $score/$totalQuestions",
-                    color = scoreColor
-                )
-            }
-        } else {
-            Text(
-                text = "Your score is: $score/$totalQuestions",
-                color = scoreColor,
-                fontSize = textSize, // Use the dynamic text size
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text=if(score >= 7) "Great Job" else "Please Study!",
-                fontSize = textSizeTwo,
-                color = scoreColor,
-                modifier = Modifier.padding(16.dp)
 
+                if (selectedOptionIndex.value == currentQuestion.correctAnswerIndex) {
+                    score++
+                }
+
+                selectedOptionIndex.value = -1 // Reset selected option index
+
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    currentQuestionIndex++
+                } else {
+                    showScore = true // Show the score when reaching the last question
+                    scoreColor = if (score >= 7) Color.Green else Color.Red // Set color based on score
+                    textSize = 24.sp // Set text size to a larger value
+                }
+            },
+            enabled = selectedOptionIndex.value != -1 // Enable button only if an option is selected
+        ) {
+            Text(
+                text = "Next",
+                color = Color.White
             )
         }
 
         if (showScore) {
+            Text(
+                text = "Your score is: $score/$totalQuestions",
+                color = scoreColor,
+                fontSize = textSize,
+                modifier = Modifier.padding(16.dp)
+            )
+            Text(
+                text = if (score >= 7) "Great Job" else "Please Study!",
+                fontSize = textSizeTwo,
+                color = scoreColor,
+                modifier = Modifier.padding(16.dp)
+            )
+
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {
                 // Navigate back to the quiz selection screen
@@ -151,6 +153,7 @@ fun QuizScreen(
         }
     }
 }
+
 
 
 
