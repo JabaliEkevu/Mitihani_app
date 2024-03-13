@@ -42,6 +42,7 @@ fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
     }
 }
 
+
 @Composable
 fun QuizSelectionScreen(quizzes: List<Quiz>, onQuizSelected: (Quiz) -> Unit) {
     Column(
