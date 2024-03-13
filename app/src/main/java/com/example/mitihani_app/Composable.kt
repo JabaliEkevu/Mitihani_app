@@ -1,5 +1,6 @@
 package com.example.mitihani_app
 
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,8 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+
+
 
 
 @Composable
@@ -65,6 +71,9 @@ fun QuizScreen(
     var score by remember { mutableStateOf(0) }
     val totalQuestions = quiz.questions.size
     var showScore by remember { mutableStateOf(false) }
+    var scoreColor by remember { mutableStateOf(Color.White) }
+    var textSize by remember { mutableStateOf(16.sp) } // Initial text size
+    val textSizeTwo by remember { mutableStateOf(20.sp) } // Initial text size
 
     // Shuffle the list of questions
     val shuffledQuestions = remember { quiz.questions.shuffled() }
@@ -92,23 +101,43 @@ fun QuizScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            if (selectedOptionIndex.value == currentQuestion.correctAnswerIndex) {
-                score++
-            }
-            selectedOptionIndex.value = -1 // Reset selected option index
+        if (!showScore) {
+            Button(
+                onClick = {
+                    if (selectedOptionIndex.value == currentQuestion.correctAnswerIndex) {
+                        score++
+                    }
 
-            if (currentQuestionIndex < totalQuestions - 1) {
-                currentQuestionIndex++
-            } else {
-                showScore = true // Show the score when reaching the last question
+                    selectedOptionIndex.value = -1 // Reset selected option index
+
+                    if (currentQuestionIndex < totalQuestions - 1) {
+                        currentQuestionIndex++
+                    } else {
+                        showScore = true // Show the score when reaching the last question
+                        scoreColor = if (score >= 7) Color.Green else Color.Red // Set color based on score
+                        textSize = 24.sp // Set text size to a larger value
+                    }
+                }
+            ) {
+                Text(
+                    text = "Your score is: $score/$totalQuestions",
+                    color = scoreColor
+                )
             }
-        }) {
-            if (showScore) {
-                Text(text = "Your current score is: $score/$totalQuestions")
-            } else {
-                Text(text = "Next")
-            }
+        } else {
+            Text(
+                text = "Your score is: $score/$totalQuestions",
+                color = scoreColor,
+                fontSize = textSize, // Use the dynamic text size
+                modifier = Modifier.padding(16.dp)
+            )
+            Text(
+                text=if(score >= 7) "Great Job" else "Please Study!",
+                fontSize = textSizeTwo,
+                color = scoreColor,
+                modifier = Modifier.padding(16.dp)
+
+            )
         }
 
         if (showScore) {
@@ -122,3 +151,8 @@ fun QuizScreen(
         }
     }
 }
+
+
+
+
+
