@@ -32,7 +32,7 @@ fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
     val textSizeWelcom by remember { mutableStateOf(30.sp) } // Initial text size
     val textSizeWelcomeButton by remember { mutableStateOf(20.sp) } // Initial text size
     Image(
-        painter = painterResource(id = R.drawable.app_image1),
+        painter = painterResource(id = R.drawable.app_image_3),
         contentDescription = null,
         contentScale = ContentScale.Fit,
         modifier = Modifier.fillMaxSize()
@@ -61,6 +61,12 @@ fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
 
 @Composable
 fun QuizSelectionScreen(quizzes: List<Quiz>, onQuizSelected: (Quiz) -> Unit) {
+    Image(
+        painter = painterResource(id = R.drawable.app_image1),
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+        modifier = Modifier.fillMaxSize()
+    )
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
