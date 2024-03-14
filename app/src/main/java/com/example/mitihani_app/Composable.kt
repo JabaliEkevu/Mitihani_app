@@ -2,6 +2,7 @@ package com.example.mitihani_app
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -124,15 +124,20 @@ fun QuizScreen(
         Text(text = currentQuestion.text, fontSize = textSizeTwo)
 
         currentQuestion.options.forEachIndexed { optionIndex, option ->
-            RadioButton(
-                selected = optionIndex == selectedOptionIndex.value,
+            Button(
                 onClick = {
                     selectedOptionIndex.value = optionIndex
-                }
-            )
-            Text(text = option)
+                },
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .background(
+                        if (optionIndex == selectedOptionIndex.value) Color.Gray else Color.White,
+                        shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp)
+                    )
+            ) {
+                Text(text = option)
+            }
         }
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
