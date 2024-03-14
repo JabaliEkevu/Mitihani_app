@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 composable("quizSelection") {
-                    QuizSelectionScreen(quizzes = yourListOfQuizzes) { selectedQuiz ->
+                    QuizSelectionScreen(quizzes = ListOfQuizzes) { selectedQuiz ->
                         navController.navigate("quiz/${selectedQuiz.title}")
                     }
                 }
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     arguments = listOf(navArgument("quizTitle") { type = NavType.StringType })
                 ) { backStackEntry ->
                     val quizTitle = backStackEntry.arguments?.getString("quizTitle") ?: ""
-                    val selectedQuiz = yourListOfQuizzes.find { it.title == quizTitle }
+                    val selectedQuiz = ListOfQuizzes.find { it.title == quizTitle }
                     selectedQuiz?.let { quiz ->
                         QuizScreen(navController, quiz) { score, totalQuestions ->
                             // Handle score

@@ -37,8 +37,9 @@ fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
         Text(text = "Karibuni App za Mitihani!", fontSize = textSizeWelcom)
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = onStartQuizClicked) {
-            Text(text = "Endelee ili kufanya mitihani", fontSize = textSizeWelcomeButton)
+            Text(text = "Endelee\n\nContinue", fontSize = textSizeWelcomeButton)
         }
+
     }
 }
 

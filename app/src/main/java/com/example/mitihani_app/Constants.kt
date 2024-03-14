@@ -1,6 +1,6 @@
 package com.example.mitihani_app
 
-val yourListOfQuizzes = listOf(
+val ListOfQuizzes = listOf(
     Quiz(
         title = "Nambari (Numbers) 1 - 10",
         questions = listOf(
@@ -115,7 +115,7 @@ val yourListOfQuizzes = listOf(
     ),
     // Add more quizzes
     Quiz(
-        title = "Nambari 21-100",
+        title = "Nambari (Numbers) 21-100",
         questions = listOf(
             Question(
                 text = "Unasemaje 21 kwa Kiswahli?\n\nHow do you say 21 in Swahili?",
@@ -163,4 +163,62 @@ val yourListOfQuizzes = listOf(
                 correctAnswerIndex = 2
             ),
         )
-    ))
+    ),
+    // Add more quizzes
+    Quiz(
+        title = "Nambari (Numbers) 100-1000",
+        questions = listOf(
+            Question(
+                text = "Unasemaje 100 kwa Kiswahli?\n\nHow do you say 100 in Swahili?",
+                options = listOf("Mia mbili", "Mia saba", "Mia nne", "Mia Moja"),
+                correctAnswerIndex = 3
+            ),
+            Question(
+                text = "Unasemaje 200 kwa Kiswahli?\n\nHow do you say 200 in Swahili?",
+                options = listOf("Thelathini", "Hamsini", "Sabini", "Ishirini"),
+                correctAnswerIndex = 0
+            ),
+            Question(
+                text = "Unasemaje 300 kwa Kiswahli?\n\nHow do you say 300 in Swahili?",
+                options = listOf("Tisini", "Themanini", "Ishirini", "Airobaini"),
+                correctAnswerIndex = 3
+            ),
+            Question(
+                text = "Unasemaje 400 kwa Kiswahli?\n\nHow do you say 400 in Swahili?",
+                options = listOf("Mia moja", "Hamsini", "Thelathini", "Themanini"),
+                correctAnswerIndex = 1
+            ),
+            Question(
+                text = "Unasemaje 500 kwa Kiswahli?\n\nHow do you say 500 in Swahili?",
+                options = listOf("Airobaini", "Tisini", "Sitini", "Mia Moja"),
+                correctAnswerIndex = 2
+            ),
+            Question(
+                text = "Unasemaje 600 kwa Kiswahli?\n\nHow do you say 600 in Swahili?",
+                options = listOf("Sabini", "Themanini", "Hamsini", "Sitini"),
+                correctAnswerIndex = 0
+            ),
+            Question(
+                text = "Unasemaje 700 kwa Kiswahli?\n\nHow do you say 700 in Swahili?",
+                options = listOf("Hamsini", "Mia moja", "Airobaini", "Themanini"),
+                correctAnswerIndex = 3
+            ),
+            Question(
+                text = "Unasemaje 800 kwa Kiswahli?\n\nHow do you say 800 in Swahili?",
+                options = listOf("Themanini", "Tisini", "Thalathini", "Ishirini"),
+                correctAnswerIndex = 1
+            ),
+            Question(
+                text = "Unasemaje 900 kwa Kiswahli?\n\nHow do you say 900 in Swahili?",
+                options = listOf("Sitini", "Thelathini", "Mia moja", "Tisini"),
+                correctAnswerIndex = 2
+            ),
+            Question(
+                text = "Unasemaje 1000 kwa Kiswahli?\n\nHow do you say 1000 in Swahili?",
+                options = listOf("Sitini", "Thelathini", "Mia moja", "Tisini"),
+                correctAnswerIndex = 2
+            )
+
+    )
+)
+)
