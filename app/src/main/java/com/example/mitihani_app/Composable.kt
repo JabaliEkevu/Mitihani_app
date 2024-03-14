@@ -100,14 +100,26 @@ fun QuizScreen(
     val selectedOptionIndex = remember { mutableStateOf(-1) } // Selected option index, initialized to -1
 
     // Shuffle the list of questions
-    val shuffledQuestions = remember { quiz.questions.shuffled() }
+    //val shuffledQuestions = remember { quiz.questions.shuffled() }
+
+    // Shuffle both questions and options
+    // Shuffle both questions and options while preserving correct answer indices
+    val shuffledQuiz = remember {
+        quiz.copy(questions = quiz.questions.shuffled().map { question ->
+            val shuffledOptions = question.options.shuffled()
+            val correctAnswerIndex = question.correctAnswerIndex?.let { originalIndex ->
+                shuffledOptions.indexOfFirst { it == question.options[originalIndex] }
+            } ?: -1 // Default value in case correctAnswerIndex is null
+            question.copy(options = shuffledOptions, correctAnswerIndex = correctAnswerIndex)
+        })
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val currentQuestion = shuffledQuestions[currentQuestionIndex]
+        val currentQuestion = shuffledQuiz.questions[currentQuestionIndex]
 
         Text(text = currentQuestion.text, fontSize = textSizeTwo)
 
