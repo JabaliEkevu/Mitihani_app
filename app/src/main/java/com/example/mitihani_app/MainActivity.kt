@@ -15,6 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            window.statusBarColor = getColor(R.color.black)
             NavHost(navController = navController, startDestination = "welcome") {
                 composable("welcome") {
                     WelcomeScreen {

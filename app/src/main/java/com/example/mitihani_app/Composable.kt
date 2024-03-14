@@ -1,12 +1,14 @@
 package com.example.mitihani_app
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -18,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -27,16 +31,27 @@ import androidx.navigation.NavController
 fun WelcomeScreen(onStartQuizClicked: () -> Unit) {
     val textSizeWelcom by remember { mutableStateOf(30.sp) } // Initial text size
     val textSizeWelcomeButton by remember { mutableStateOf(20.sp) } // Initial text size
+    Image(
+        painter = painterResource(id = R.drawable.app_image1),
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+        modifier = Modifier.fillMaxSize()
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Karibuni App za Mitihani!", fontSize = textSizeWelcom)
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onStartQuizClicked) {
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick = onStartQuizClicked,
+            shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp),
+            modifier = Modifier.padding(top = 200.dp)
+        ) {
             Text(text = "Endelee\n\nContinue", fontSize = textSizeWelcomeButton)
         }
 
@@ -54,7 +69,8 @@ fun QuizSelectionScreen(quizzes: List<Quiz>, onQuizSelected: (Quiz) -> Unit) {
         quizzes.forEach { quiz ->
             Button(
                 onClick = { onQuizSelected(quiz) },
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                shape = RoundedCornerShape(topStart = 10.dp, bottomEnd = 20.dp)
             ) {
                 Text(text = quiz.title)
             }
@@ -122,7 +138,8 @@ fun QuizScreen(
                     textSize = 24.sp // Set text size to a larger value
                 }
             },
-            enabled = selectedOptionIndex.value != -1 // Enable button only if an option is selected
+            enabled = selectedOptionIndex.value != -1, // Enable button only if an option is selected,
+            shape= RoundedCornerShape(10.dp)
         ) {
             Text(
                 text = "Next",
@@ -145,15 +162,21 @@ fun QuizScreen(
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {
+            Button(
+                onClick = {
                 // Navigate back to the quiz selection screen
                 navController.navigate("quizSelection")
-            }) {
+            },
+                shape= RoundedCornerShape(10.dp)
+            ) {
                 Text(text = "Return to Quiz Selection")
             }
         }
     }
 }
+
+
+
 
 
 
